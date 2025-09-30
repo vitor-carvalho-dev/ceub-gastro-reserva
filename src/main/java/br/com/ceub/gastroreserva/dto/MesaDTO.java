@@ -16,4 +16,7 @@ public class MesaDTO {
 
     @NotNull(message = "Campo qtdCadeira obrigatório")
     private Integer qtdCadeira;
+
+    @NotNull(message = "Campo qtdCadeira obrigatório")
+    private int numero ;
 }

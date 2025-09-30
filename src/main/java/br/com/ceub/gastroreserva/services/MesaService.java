@@ -31,6 +31,7 @@ public class MesaService {
                 throw new AccessDeniedException("Acesso negado. Usuário não esta autenticado");
             }
 
+
             Restaurante restaurante = restauranteRepository.findById(mesaDTO.getCodRestaurante())
                     .orElseThrow(() -> new RecursoNaoEncontradoException(String.format("Restaurante com id:%d não encontrado", mesaDTO.getCodRestaurante())));
 
@@ -39,7 +40,7 @@ public class MesaService {
             Mesa mesaCadastrada = mesaRepository.save(entity);
             return MesaMapper.mesaToMesaDTO(mesaCadastrada);
         } catch (DataIntegrityViolationException ex) {
-            throw new DataIntegrityViolation(String.format("Mesa com  id:%d ja cadastrada", mesaDTO.getCodMesa()), ex);
+            throw new DataIntegrityViolation(String.format("Mesa com id:%d ja cadastrada", mesaDTO.getCodMesa()), ex);
         }
     }
 }

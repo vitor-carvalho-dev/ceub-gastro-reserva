@@ -54,11 +54,8 @@ spring.flyway.locations=classpath:db/migration
 
 Interface Gráfica do Swagger UI:
 http://localhost:8080/swagger-ui.html
-
-foi realizado a hospedagem no azure segue link do swagger:
-https://ceub-gastro-reserva.azurewebsites.net/swagger-ui/index.html#/
-usuario:user
-senha:password
+usuario: user
+senha: 1234
 
 
 - Segue o link do miro aonde mostramos todo os fluxos
@@ -74,5 +71,7 @@ Na aba Authorization - selecionaro type -Basic Auth e informar os dados abaixo
 
 ## 🤝 Integrantes
 
+- Jorge Jardim
 - VITOR MARTINS AVELINO DE CARVALHO
+
 

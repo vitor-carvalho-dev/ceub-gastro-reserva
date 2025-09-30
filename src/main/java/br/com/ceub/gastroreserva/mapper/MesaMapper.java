@@ -12,6 +12,7 @@ public class MesaMapper {
                 .codMesa(mesa.getId())
                 .qtdCadeira(mesa.getQtdCadeira())
                 .codRestaurante(mesa.getRestaurante().getId())
+                .numero(mesa.getNumero())
                 .build();
     }
 
@@ -21,6 +22,7 @@ public class MesaMapper {
                 .id(mesaDTO.getCodMesa())
                 .qtdCadeira(mesaDTO.getQtdCadeira())
                 .restaurante(restaurante)
+                .numero(mesaDTO.getNumero())
                 .build();
     }
 

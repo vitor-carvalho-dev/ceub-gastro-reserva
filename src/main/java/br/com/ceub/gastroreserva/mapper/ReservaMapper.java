@@ -40,7 +40,7 @@ public class ReservaMapper {
         return ReservaDTO
                 .builder()
                 .dataAgendamento(reserva.getDataAgendamento())
-                .codMesa(codMesa.get())
+                .codMesa(reserva.getMesa() != null ? reserva.getMesa().getId() : null) // Usa a mesa associada à reserva
                 .codRestaurante(reserva.getRestaurante().getId())
                 .codUsuario(reserva.getUsuario().getId())
                 .comentario(reserva.getComentario())

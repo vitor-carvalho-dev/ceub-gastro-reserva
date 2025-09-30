@@ -13,6 +13,7 @@ import br.com.ceub.gastroreserva.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservaService {
@@ -35,39 +37,60 @@ public class ReservaService {
     private final NotificacaoService notificacaoService;
 
     @Transactional(rollbackOn = Exception.class)
-    public ReservaDTO salvarReserva(@Valid ReservaDTO reservaDTO) throws AccessDeniedException {
+
+    public ReservaDTO salvarReserva(@Valid ReservaDTO reservaDTO) {
         try {
-            if (!autenticacaoService.verificarSeUsuarioEstaAutenticado()) {
-                throw new AccessDeniedException("Acesso negado. Usuário não esta autenticado");
-            }
+            // 🔹 Se quiser validar manualmente a autenticação, descomente:
+            // if (!autenticacaoService.verificarSeUsuarioEstaAutenticado()) {
+            //     throw new RuntimeException("Acesso negado. Usuário não está autenticado");
+            // }
+
             Usuario usuario = usuarioRepository.findById(reservaDTO.getCodUsuario())
-                    .orElseThrow(() -> new RecursoNaoEncontradoException(String.format("Usuario com id:%d não encontrado", reservaDTO.getCodUsuario())));
+                    .orElseThrow(() -> new RecursoNaoEncontradoException(
+                            String.format("Usuário com id:%d não encontrado", reservaDTO.getCodUsuario())));
 
             Restaurante restaurante = restauranteRepository.findById(reservaDTO.getCodRestaurante())
-                    .orElseThrow(() -> new RecursoNaoEncontradoException(String.format("Restaurante com id:%d não encontrado", reservaDTO.getCodRestaurante())));
+                    .orElseThrow(() -> new RecursoNaoEncontradoException(
+                            String.format("Restaurante com id:%d não encontrado", reservaDTO.getCodRestaurante())));
 
+            var mesaSelecionada = restaurante.getMesa().stream()
+                    .filter(mesa -> Objects.equals(mesa.getId(), reservaDTO.getCodMesa()))
+                    .findFirst();
 
-            var mensaSelecionada = restaurante.getMesa().stream().filter(mesa -> Objects.equals(mesa.getId(), reservaDTO.getCodMesa())).findFirst();
-
-            if (mensaSelecionada.isEmpty()){
-                throw new RuntimeException(String.format("Mesa com id:%d não localizada", reservaDTO.getCodMesa()));
+            if (mesaSelecionada.isEmpty()) {
+                throw new RuntimeException(
+                        String.format("Mesa com id:%d não localizada", reservaDTO.getCodMesa()));
             }
 
-            Reserva entity = ReservaMapper.toEntity(reservaDTO, usuario, restaurante, mensaSelecionada);
+            Reserva entity = ReservaMapper.toEntity(reservaDTO, usuario, restaurante, mesaSelecionada);
 
-            boolean seExisteReserva = reservaRepository.existeReserva(entity.getUsuario().getCpf(), entity.getRestaurante().getId());
-            if (seExisteReserva){
-                throw new RuntimeException(String.format("Reserva ja existe para o usuário:%s nessa restaurante:%s , favor selecionar outro!", entity.getUsuario().getNome(), entity.getRestaurante().getNome()));
+            boolean existeReserva = reservaRepository.existeReserva(entity.getUsuario().getCpf(),
+                    entity.getRestaurante().getId());
+            if (existeReserva) {
+                throw new RuntimeException(
+                        String.format("Reserva já existe para o usuário: %s nesse restaurante: %s. Favor selecionar outro!",
+                                entity.getUsuario().getNome(), entity.getRestaurante().getNome()));
             }
 
             Reserva reservaSalva = reservaRepository.save(entity);
 
-            notificacaoService.enviarNotificacao(usuario,
-                    String.format("%s Sua reserva para o restaurante %s foi efetuada com sucesso", usuario.getNome(), restaurante.getNome()));
+          //  notificacaoService.enviarNotificacao(usuario,
+           //         String.format("%s, sua reserva para o restaurante %s foi efetuada com sucesso.",
+            //                usuario.getNome(), restaurante.getNome()));
+
+            String mensagem = "%s, sua reserva para o restaurante %s foi efetuada com sucesso.";
+
+            try {
+                notificacaoService.enviarNotificacao(usuario, mensagem);
+            } catch (Exception e) {
+                log.error("Falha ao enviar notificação: {}", e.getMessage());
+            }
 
             return ReservaMapper.toDTO(reservaSalva);
+
         } catch (DataIntegrityViolationException ex) {
-            throw new DataIntegrityViolation(String.format("Mesa com  id:%d ja agendada selecione outra", reservaDTO.getCodMesa()), ex);
+            throw new DataIntegrityViolation(
+                    String.format("Mesa com id:%d já agendada. Selecione outra", reservaDTO.getCodMesa()), ex);
         }
     }
 
