@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CheckInDTO {
 
+    @NotNull(message = "O ID da reserva é obrigatório para o check-in")
     private Long reservaId;
     @NotBlank(message = "Campo nome do cliente obrigatório")
     private String nomeCliente;

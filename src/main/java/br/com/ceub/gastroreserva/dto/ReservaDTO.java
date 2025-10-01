@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ReservaDTO {
 
+    private Long id;
+
     @NotNull(message = "Campo codRestaurante obrigatório")
     private Long codRestaurante;
 
@@ -36,6 +38,9 @@ public class ReservaDTO {
 
     @Schema(hidden = true)
     private boolean checkedIn;
+
+    @Schema(hidden = true)
+    private boolean checkedOut;
 
 
 }

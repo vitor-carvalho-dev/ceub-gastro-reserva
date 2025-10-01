@@ -7,11 +7,12 @@ import br.com.ceub.gastroreserva.entities.Restaurante;
 import br.com.ceub.gastroreserva.entities.Usuario;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+
 
 
 public class ReservaMapper {
 
+    // Método toEntity (Não alterado)
     public static Reserva toEntity(ReservaDTO reservaDTO, Usuario usuario, Restaurante restaurante, Optional<Mesa> mensaSelecionada) {
 
 
@@ -26,27 +27,21 @@ public class ReservaMapper {
     }
 
     public static ReservaDTO toDTO(Reserva reserva) {
-        AtomicReference<Long> codMesa = new AtomicReference<>();
-        var mesaOptional = reserva.getRestaurante()
-                .getMesa()
-                .stream()
-                .findFirst();
 
-        mesaOptional.ifPresentOrElse(
-                mesa -> codMesa.set(mesa.getId()),
-                () -> codMesa.set(null)
-        );
+
+        Long codMesa = reserva.getMesa() != null ? reserva.getMesa().getId() : null;
 
         return ReservaDTO
                 .builder()
+                .id(reserva.getId()) // Retorna ID da reserva (essencial para o Check-in)
                 .dataAgendamento(reserva.getDataAgendamento())
-                .codMesa(reserva.getMesa() != null ? reserva.getMesa().getId() : null) // Usa a mesa associada à reserva
+                .codMesa(codMesa) // Usa a mesa associada à reserva
                 .codRestaurante(reserva.getRestaurante().getId())
                 .codUsuario(reserva.getUsuario().getId())
                 .comentario(reserva.getComentario())
                 .nomeCliente(reserva.getUsuario().getNome())
                 .checkedIn(reserva.isCheckedIn())
+                .checkedOut(reserva.isCheckedOut())
                 .build();
     }
-
 }

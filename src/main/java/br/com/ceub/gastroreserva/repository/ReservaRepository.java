@@ -16,4 +16,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     boolean existeReserva(String cpf, Long idRestaurante);
 
 
+    Optional<Reserva> findById(Long id);
 }

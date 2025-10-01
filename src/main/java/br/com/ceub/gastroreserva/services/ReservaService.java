@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -38,12 +39,12 @@ public class ReservaService {
 
     @Transactional(rollbackOn = Exception.class)
 
-    public ReservaDTO salvarReserva(@Valid ReservaDTO reservaDTO) {
+    public ReservaDTO salvarReserva(@Valid ReservaDTO reservaDTO) throws AccessDeniedException {
         try {
-            // 🔹 Se quiser validar manualmente a autenticação, descomente:
-            // if (!autenticacaoService.verificarSeUsuarioEstaAutenticado()) {
-            //     throw new RuntimeException("Acesso negado. Usuário não está autenticado");
-            // }
+
+             if (!autenticacaoService.verificarSeUsuarioEstaAutenticado()) {
+                 throw new RuntimeException("Acesso negado. Usuário não está autenticado");
+             }
 
             Usuario usuario = usuarioRepository.findById(reservaDTO.getCodUsuario())
                     .orElseThrow(() -> new RecursoNaoEncontradoException(
@@ -111,4 +112,10 @@ public class ReservaService {
     public List<ReservaDTO> buscarCheckins() {
         return reservaRepository.findAll().stream().map(ReservaMapper::toDTO).filter(reservaDTO -> reservaDTO.isCheckedIn()).toList();
     }
+
+    public Optional<Reserva> buscarReservaPorId(Long id) {
+        return reservaRepository.findById(id);
+    }
+
+
 }
