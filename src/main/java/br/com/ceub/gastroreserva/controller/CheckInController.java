@@ -3,6 +3,7 @@ package br.com.ceub.gastroreserva.controller;
 import br.com.ceub.gastroreserva.dto.CheckInDTO;
 import br.com.ceub.gastroreserva.dto.ReservaDTO;
 import br.com.ceub.gastroreserva.services.CheckInService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/checkins")
 @RequiredArgsConstructor
+@Tag(name = "Check-in", description = "Registrar a chegada do cliente no restaurante.")
 public class CheckInController {
 
     private final CheckInService service;

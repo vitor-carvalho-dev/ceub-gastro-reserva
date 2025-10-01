@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/checkouts")
 @RequiredArgsConstructor
-@Tag(name = "Check-out", description = "Endpoints para finalizar a permanência de um cliente no restaurante.")
+@Tag(name = "Check-out", description = "Finaliza a permanência de um cliente no restaurante.")
 
 public class CheckOutController {
 

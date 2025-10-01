@@ -1,6 +1,7 @@
 package br.com.ceub.gastroreserva.dto;
 
 import br.com.ceub.gastroreserva.enums.TipoUsuario;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Data
 @Builder
+@Schema(description = "Dados necessários para realizar o cadastro do usuário.")
 public class UsuarioDTO {
 
     private Long id;

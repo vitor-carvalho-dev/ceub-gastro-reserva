@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Schema(description = "Dados necessários para realizar o cadastro do restaurante.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestauranteDTO {
     @Schema(hidden = true)

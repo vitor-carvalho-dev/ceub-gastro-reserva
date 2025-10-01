@@ -2,6 +2,7 @@ package br.com.ceub.gastroreserva.controller;
 
 import br.com.ceub.gastroreserva.dto.RestauranteDTO;
 import br.com.ceub.gastroreserva.services.RestauranteService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/restaurantes")
 @RequiredArgsConstructor
+@Tag(name = "Restaurante", description = "Cadastro e gestão de estabelecimentos.")
 public class RestauranteController {
 
     @Autowired

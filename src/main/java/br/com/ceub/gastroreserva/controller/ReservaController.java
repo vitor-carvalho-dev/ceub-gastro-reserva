@@ -2,6 +2,7 @@ package br.com.ceub.gastroreserva.controller;
 
 import br.com.ceub.gastroreserva.dto.ReservaDTO;
 import br.com.ceub.gastroreserva.services.ReservaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("reservas")
 @RequiredArgsConstructor
+@Tag(name = "Reserva", description = "Consultar e gerenciar as reservas de mesas.")
 public class ReservaController {
 
     private final ReservaService reservaService;

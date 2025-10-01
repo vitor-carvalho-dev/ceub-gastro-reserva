@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@Schema(description = "Dados para criação de uma nova reserva.")
 public class ReservaDTO {
 
     private Long id;

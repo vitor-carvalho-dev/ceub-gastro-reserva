@@ -2,6 +2,7 @@ package br.com.ceub.gastroreserva.controller;
 
 import br.com.ceub.gastroreserva.dto.UsuarioDTO;
 import br.com.ceub.gastroreserva.services.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("usuarios")
 @RequiredArgsConstructor
+@Tag(name = "Usuário", description = "Cadastro e gestão de clientes e administradores do sistema.")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
