@@ -70,8 +70,8 @@ Na aba Authorization - selecionaro type -Basic Auth e informar os dados abaixo
 
 
 ## 🤝 Integrantes
-
-- Jorge Jardim
+- LUIS FELIPE
+- JORGE JARDIM
 - VITOR MARTINS AVELINO DE CARVALHO
 
 
