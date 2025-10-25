@@ -1,0 +1,92 @@
+Na integração como a construção de uma ponte:
+O Lado Java (Sua Base - Já está pronta! ✅): Ao criar a classe WebConfig, você construiu a "metade da ponte" do lado do servidor. Você abriu a porta e disse: "Estou pronto e ouvindo. Eu permito que o site em http://localhost:3000 converse comigo". Seus controllers (UsuarioController, RestauranteController) são os destinos para onde essa ponte levará.
+O Lado React (Seu Próximo Passo - Ação Necessária! 👨‍💻): Agora, você precisa construir a "outra metade da ponte" do lado do cliente. O React não sabe magicamente que seu back-end existe em http://localhost:8080. Você precisa configurar e escrever o código no React para que ele saiba como e para onde enviar as requisições.
+Exatamente, agora você precisa configurar o React.
+"Configurar o React" nesse contexto não significa mexer em arquivos de configuração complexos. Significa principalmente estruturar seu código para fazer as chamadas de API de forma limpa e centralizada.
+Aqui está o checklist prático de como fazer isso:
+Passo 1: Instalar o Axios (Recomendado)
+Axios é uma biblioteca que simplifica muito as chamadas HTTP (melhor que o fetch nativo para a maioria dos casos de uso de APIs). No terminal, dentro da pasta do seu projeto React, rode:
+code
+Bash
+npm install axios
+Passo 2: Criar um "Cliente de API" Centralizado
+Esta é a configuração mais importante que você fará no React. Em vez de escrever a URL completa do seu back-end em todos os componentes, você a define em um único lugar.
+Crie um novo arquivo, por exemplo: src/services/api.js
+code
+JavaScript
+// src/services/api.js
+
+import axios from 'axios';
+
+const apiClient = axios.create({
+  // ESTA É A CONFIGURAÇÃO PRINCIPAL:
+  // Aponta para a base da sua API Java no Spring Boot.
+  baseURL: 'http://localhost:8080/api', 
+  
+  // Você também pode definir cabeçalhos padrão aqui, se necessário
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+export default apiClient;
+Análise deste arquivo:
+baseURL: 'http://localhost:8080/api': Esta linha é a "mágica". Agora, toda vez que você usar apiClient, ele já saberá que o destino é o seu servidor Java. Note que incluímos o prefixo /api que definimos nas rotas do Spring.
+Passo 3: Usar o Cliente de API nos seus Componentes
+Agora, em vez de usar axios.get('http://localhost:8080/api/usuarios'), você simplesmente importa seu cliente e usa a rota relativa.
+Veja como ficaria um componente que consome seu UsuarioController:
+code
+Jsx
+// src/pages/UsuariosPage.js
+
+import React, { useState, useEffect } from 'react';
+import apiClient from '../services/api'; // <-- 1. Importe seu cliente de API
+
+function UsuariosPage() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Função para buscar os usuários
+    const fetchUsuarios = async () => {
+      try {
+        // 2. Use o apiClient para chamar a rota relativa
+        // Ele vai automaticamente fazer a chamada para: http://localhost:8080/api/usuarios
+        const response = await apiClient.get('/usuarios'); 
+        setUsuarios(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar usuários:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsuarios();
+  }, []); // O array vazio [] faz com que isso rode apenas uma vez, quando o componente é montado
+
+  if (loading) {
+    return <p>Carregando usuários...</p>;
+  }
+
+  return (
+    <div>
+      <h1>Lista de Usuários</h1>
+      <ul>
+        {usuarios.map(usuario => (
+          <li key={usuario.id}>{usuario.nome} - {usuario.email}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default UsuariosPage;
+Resumo do Fluxo
+React: O componente UsuariosPage é renderizado.
+React: O useEffect chama a função fetchUsuarios.
+React (Axios): apiClient.get('/usuarios') envia uma requisição GET para http://localhost:8080/api/usuarios.
+Java (Spring): A classe WebConfig vê a requisição vinda de localhost:3000 (onde o React roda) e a permite.
+Java (Spring): A requisição chega ao método listar() do seu UsuarioController.
+Java (Spring): O controller processa a lógica e retorna a lista de usuários em formato JSON.
+React: O axios recebe a resposta e a fetchUsuarios atualiza o estado usuarios com os dados recebidos.
+React: O componente é re-renderizado para mostrar a lista de usuários na tela.
