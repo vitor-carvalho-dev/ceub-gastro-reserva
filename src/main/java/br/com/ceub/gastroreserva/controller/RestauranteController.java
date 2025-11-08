@@ -5,7 +5,7 @@ import br.com.ceub.gastroreserva.services.RestauranteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ import java.util.List;
 @Tag(name = "Restaurante", description = "Cadastro e gestão de estabelecimentos.")
 public class RestauranteController {
 
-    @Autowired
-    private RestauranteService service;
-
+   // @Autowired
+    // private RestauranteService service;
+    private final RestauranteService service;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid RestauranteDTO restauranteDTO) {
