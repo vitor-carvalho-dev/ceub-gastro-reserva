@@ -8,7 +8,7 @@ VALUES (null, CURRENT_TIMESTAMP, null, 'FUNCIONARIO', '93029719022', 'nomeTeste'
         'qualquer endereço', 1);
 
 insert into TB_RESTAURANTE (DATA_DE_INCLUSAO, DATA_DE_ALTERACAO, NOME_RESTAURANTE, ENDERECO)
-values (CURRENT_TIMESTAMP, NULL, 'RESTAURANTE TESTE', 'endereço do restaurante');
+values (CURRENT_TIMESTAMP, NULL, 'Sabor do Sertão', 'Avenida Brasil, 456, Rio de Janeiro - RJ');
 
 insert into TB_MESA (DATA_DE_INCLUSAO, DATA_DE_ALTERACAO, QTD_CADEIRA, COD_RESTAURANTE, NUMERO)
 VALUES ( CURRENT_TIMESTAMP, null, 4, 1, 1);

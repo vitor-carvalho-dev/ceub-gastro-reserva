@@ -46,6 +46,7 @@ CREATE TABLE tb_restaurante
     data_de_alteracao TIMESTAMP,
     nome_restaurante  VARCHAR(255),
     endereco          TEXT,
+    caminho_imagem    VARCHAR(255), -- <<< NOVO CAMPO ADICIONADO AQUI
     CONSTRAINT pk_tb_restaurante PRIMARY KEY (cod)
 );
 

@@ -37,4 +37,7 @@ public class Restaurante extends Auditoria {
     @OneToMany(mappedBy = "restaurante")
     private List<Reserva> reserva;
 
+    @Column(name = "CAMINHO_IMAGEM")
+    private String caminhoImagem;
+
 }
