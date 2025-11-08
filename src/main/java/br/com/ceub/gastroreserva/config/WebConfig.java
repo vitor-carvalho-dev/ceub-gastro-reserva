@@ -18,11 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true); // Permite o envio de cookies e credenciais de autenticação
     }
 
-    @Override
+   /* @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Mapeia a URL pública /uploads/** para o diretório físico 'uploads/' na raiz do projeto.
         // O prefixo "file:" é essencial para indicar que é um caminho no sistema de arquivos.
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:uploads/");
-    }
+    } */
 }
