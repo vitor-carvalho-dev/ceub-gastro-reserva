@@ -57,7 +57,6 @@ http://localhost:8080/swagger-ui.html
 usuario: user
 senha: 1234
 
-
 - Segue o link do miro aonde mostramos todo os fluxos
 https://miro.com/app/board/uXjVKOlYiQw=/?share_link_id=285328862468
 - Collection postman: https://universal-crater-6079.postman.co/workspace/ceub~63b45161-f5be-4f39-8e20-86f482f27767/collection/13186621-db46a9b2-2f80-4d99-8331-ee127237e7da?action=share&creator=13186621

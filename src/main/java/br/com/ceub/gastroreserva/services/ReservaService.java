@@ -75,14 +75,11 @@ public class ReservaService {
 
             Reserva reservaSalva = reservaRepository.save(entity);
 
-          //  notificacaoService.enviarNotificacao(usuario,
-           //         String.format("%s, sua reserva para o restaurante %s foi efetuada com sucesso.",
-            //                usuario.getNome(), restaurante.getNome()));
-
-            String mensagem = "%s, sua reserva para o restaurante %s foi efetuada com sucesso.";
+            String templateMensagem = "%s, sua reserva para o restaurante %s foi efetuada com sucesso.";
+            String mensagemFinal = String.format(templateMensagem, usuario.getNome(), restaurante.getNome());
 
             try {
-                notificacaoService.enviarNotificacao(usuario, mensagem);
+                notificacaoService.enviarNotificacao(usuario, mensagemFinal);
             } catch (Exception e) {
                 log.error("Falha ao enviar notificação: {}", e.getMessage());
             }

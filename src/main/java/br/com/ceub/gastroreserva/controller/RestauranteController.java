@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estaurantes")
+@RequestMapping("/restaurantes")
 @RequiredArgsConstructor
 @Tag(name = "Restaurante", description = "Cadastro e gestão de estabelecimentos.")
 public class RestauranteController {
