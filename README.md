@@ -68,6 +68,11 @@ Na aba Authorization - selecionaro type -Basic Auth e informar os dados abaixo
 - Username: user
 - Password : password
 
+## SQL Serve local
+- Login: gastro_user
+- Senha: gastroreserva123
+- Servidor: AN0101705085940\SQLEXPRESS2024 (da sua imagem)
+- Banco de Dados: bdGastroReserva
 
 ## 🤝 Integrantes
 - LUIS FELIPE
