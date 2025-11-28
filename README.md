@@ -26,12 +26,13 @@ Em java 17 juntamente com o framework  spring boot entre outros citados nesse du
 
 - **Autenticação:** autenticação foi realizada de forma basica com spring security.
 
-- **MVC :** onde o projeto é dividido em três camadas: a camada de interação do usuário (view), a camada de manipulação dos dados (model) e a camada de controle (controller).
+- **MVC :** O projeto segue os princípios do padrão MVC, onde as responsabilidades são divididas em três componentes principais:
+  - Controller (Controle): A camada que recebe as requisições HTTP, aciona as regras de negócio e retorna a resposta.
+  - Model (Modelo): A camada que representa os dados (Entities), a lógica de negócio (Services) e o acesso ao banco de dados (Repositories).
+  - View (Visão): Por se tratar de uma API REST, a "Visão" não é uma página visual, mas sim a representação dos dados enviada ao cliente, que em nosso projeto é o formato JSON
 
 - **Repository:** para abstrair a camada de acesso ao banco de dados.
-
 - **DTO (Data Transfer Object)** padrão voltado para transferência de dados entre camadas de aplicação.
-
 - **Padrão Mapper:** para transformar DTO´s em entidades e vice-versa.
 - **Flyway:** Esse framework é muito utilizado para versionamento e gerenciamento de banco de dados.
 - **Lombok:** Que é uma biblioteca que permite deixar o código mais limpo reduzindo o boilerplate por meio de anotações.

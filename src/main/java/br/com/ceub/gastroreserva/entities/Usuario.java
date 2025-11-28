@@ -57,6 +57,7 @@ public class Usuario extends Auditoria {
     @Column(name = "ENDERECO", nullable = false)
     private String endereco;
 
+
     @OneToOne
     @JoinColumn(name = "termo_aceite_cod")
     private TermoAceite termoAceite;
