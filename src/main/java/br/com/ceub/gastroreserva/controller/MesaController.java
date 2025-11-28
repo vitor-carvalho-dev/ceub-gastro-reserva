@@ -13,7 +13,8 @@ import java.nio.file.AccessDeniedException;
 
 
 @RestController
-@RequestMapping("/mesas")
+// @RequestMapping("/mesas")
+@RequestMapping("/api/v1/mesas")
 @RequiredArgsConstructor
 @Tag(name = "Mesa", description = "Cadastro e gestão das mesas de cada restaurante.")
 public class MesaController {

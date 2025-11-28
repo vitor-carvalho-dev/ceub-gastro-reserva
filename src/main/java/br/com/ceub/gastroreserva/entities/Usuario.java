@@ -1,16 +1,7 @@
 package br.com.ceub.gastroreserva.entities;
 
 import br.com.ceub.gastroreserva.enums.TipoUsuario;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -66,6 +57,7 @@ public class Usuario extends Auditoria {
     @Column(name = "ENDERECO", nullable = false)
     private String endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "termo_aceite_cod")
     private TermoAceite termoAceite;
 }

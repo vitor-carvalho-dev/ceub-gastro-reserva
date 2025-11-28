@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/checkouts")
+// @RequestMapping("/checkouts")
+@RequestMapping("/api/v1/checkouts")
 @RequiredArgsConstructor
 @Tag(name = "Check-out", description = "Finaliza a permanência de um cliente no restaurante.")
 

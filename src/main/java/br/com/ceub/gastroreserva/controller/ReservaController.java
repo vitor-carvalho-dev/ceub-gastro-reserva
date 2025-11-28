@@ -14,7 +14,8 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("reservas")
+// @RequestMapping("reservas") /api/v1/
+@RequestMapping("/api/v1/reservas")
 @RequiredArgsConstructor
 @Tag(name = "Reserva", description = "Consultar e gerenciar as reservas de mesas.")
 public class ReservaController {

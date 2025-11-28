@@ -4,7 +4,7 @@ VALUES (CURRENT_TIMESTAMP, null,
 
 insert into TB_USUARIO (DTYPE, DATA_DE_INCLUSAO, DATA_DE_ALTERACAO, TIPO_USUARIO, CPF, NOME, SENHA, EMAIL, ENDERECO,
                         TERMO_ACEITE_COD)
-VALUES (null, CURRENT_TIMESTAMP, null, 'FUNCIONARIO', '93029719022', 'nomeTeste', 'teste', 'teste@gmail.com',
+VALUES (null, CURRENT_TIMESTAMP, null, 'FUNCIONARIO', '93029719022', 'Joao Fufu', 'fufu', 'fufuzinho@gmail.com',
         'qualquer endereço', 1);
 
 insert into TB_RESTAURANTE (DATA_DE_INCLUSAO, DATA_DE_ALTERACAO, NOME_RESTAURANTE, ENDERECO)

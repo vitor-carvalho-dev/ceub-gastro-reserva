@@ -19,7 +19,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restaurantes")
+// @RequestMapping("/restaurantes")
+@RequestMapping("/api/v1/restaurantes")
 @RequiredArgsConstructor
 @Tag(name = "Restaurante", description = "Cadastro e gestão de estabelecimentos.")
 public class RestauranteController {
@@ -39,6 +40,24 @@ public class RestauranteController {
     @GetMapping
     public ResponseEntity<List<RestauranteDTO>> listar() {
         return ResponseEntity.ok(service.buscarRestaurantes());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RestauranteDTO> buscarPorId(@PathVariable Long id) {
+        RestauranteDTO restauranteDTO = service.buscarPorId(id);
+        return ResponseEntity.ok(restauranteDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RestauranteDTO> atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteDTO restauranteDTO) {
+        RestauranteDTO restauranteAtualizado = service.atualizar(id, restauranteDTO);
+        return ResponseEntity.ok(restauranteAtualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        service.deletar(id);
+        return ResponseEntity.noContent().build(); // Retorna HTTP 204 No Content, o padrão para delete bem-sucedido.
     }
 
     @PostMapping(value = "/{id}/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

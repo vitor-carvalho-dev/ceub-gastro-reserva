@@ -18,7 +18,8 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/checkins")
+// @RequestMapping("/checkins")
+@RequestMapping("/api/v1/checkins")
 @RequiredArgsConstructor
 @Tag(name = "Check-in", description = "Registrar a chegada do cliente no restaurante.")
 public class CheckInController {

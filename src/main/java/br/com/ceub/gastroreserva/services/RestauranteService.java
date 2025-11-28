@@ -7,6 +7,7 @@ import br.com.ceub.gastroreserva.repository.RestauranteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -26,7 +27,6 @@ import static br.com.ceub.gastroreserva.mapper.RestauranteMapper.toRestaurante;
 public class RestauranteService {
 
     private final RestauranteRepository restauranteRepository;
-    private final MesaRepository mesaRepository;
     private final Path rootLocation = Paths.get("uploads");
 
     public RestauranteDTO save(RestauranteDTO restauranteDTO) {
@@ -37,6 +37,7 @@ public class RestauranteService {
 
 
     public boolean restauranteJaExiste(String nome) {
+
         return restauranteRepository.existsByNome(nome);
     }
 
@@ -47,6 +48,37 @@ public class RestauranteService {
                 .map(RestauranteMapper::convertToDTO)
                 .toList();
 
+    }
+
+    public RestauranteDTO buscarPorId(Long id) {
+        return restauranteRepository.findById(id)
+                .map(RestauranteMapper::convertToDTO)
+                .orElseThrow(() -> new EntityNotFoundException("Restaurante com ID " + id + " não encontrado."));
+    }
+
+    @Transactional
+    public RestauranteDTO atualizar(Long id, RestauranteDTO restauranteDTO) {
+        Restaurante restauranteExistente = restauranteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Restaurante com ID " + id + " não encontrado para atualização."));
+
+        restauranteExistente.setNome(restauranteDTO.getNome());
+        restauranteExistente.setEndereco(restauranteDTO.getEndereco());
+
+        Restaurante restauranteAtualizado = restauranteRepository.save(restauranteExistente);
+        return RestauranteMapper.convertToDTO(restauranteAtualizado);
+    }
+
+    @Transactional
+    public void deletar(Long id) {
+        if (!restauranteRepository.existsById(id)) {
+            throw new EntityNotFoundException("Restaurante com ID " + id + " não encontrado para exclusão.");
+        }
+        try {
+            restauranteRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            // Captura um erro se o restaurante tiver mesas ou reservas associadas a ele
+            throw new RuntimeException("Não é possível deletar o restaurante ID " + id + " pois ele possui dados relacionados (mesas, reservas, etc).");
+        }
     }
 
     @Transactional
