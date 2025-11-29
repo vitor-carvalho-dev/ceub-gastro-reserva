@@ -18,9 +18,10 @@
   - [Pré-requisitos](#pré-requisitos)
   - [Passo a Passo da Execução](#passo-a-passo-da-execução)
   - [Configurando para SQL Server](#configurando-para-sql-server)
-- [📖 Acesso e Documentação da API](#-acesso-e-documentação-da-api)
-  - [Documentação Interativa (Swagger)](#documentação-interativa-swagger)
+- [📖 Acesso, Teste e Documentação da API](#-acesso-teste-e-documentação-da-api)
   - [Autenticação](#autenticação)
+  - [Testando com Postman](#testando-com-postman)
+  - [Documentação Interativa (Swagger)](#documentação-interativa-swagger)
   - [Acesso ao H2 Console](#acesso-ao-h2-console)
 - [🤝 Equipe do Projeto](#-equipe-do-projeto)
 
@@ -53,9 +54,9 @@ Para a construção do backend, utilizamos um conjunto de tecnologias e padrões
 
 O backend foi estruturado utilizando uma **Arquitetura em Camadas**, alinhada aos princípios do padrão MVC, para garantir uma clara separação de responsabilidades:
 
--   **Controller (Camada de Apresentação):** Recebe as requisições HTTP, valida as entradas e delega a execução para a camada de serviço. É a única camada que "fala" o protocolo da web.
--   **Service (Camada de Negócio):** O "cérebro" da aplicação. Contém toda a lógica, regras e orquestração dos processos de negócio, como criar uma reserva ou validar um usuário.
--   **Repository (Camada de Persistência):** A única camada responsável por se comunicar com o banco de dados, realizando as operações de CRUD (Create, Read, Update, Delete).
+-   **Controller (Camada de Apresentação):** Recebe as requisições HTTP, valida as entradas e delega a execução para a camada de serviço.
+-   **Service (Camada de Negócio):** O "cérebro" da aplicação. Contém toda a lógica e regras de negócio.
+-   **Repository (Camada de Persistência):** A única camada responsável por se comunicar com o banco de dados.
 
 A "View" (Visão) em nossa API REST é a representação dos dados entregue ao cliente no formato **JSON**.
 
@@ -91,6 +92,35 @@ Siga os passos abaixo para configurar e rodar a aplicação localmente.
 2.  **No arquivo `application.properties`,** comente as linhas de configuração do H2 e descomente as linhas para o SQL Server, ajustando a URL do servidor se necessário.
 3.  Ao iniciar a aplicação, o **Flyway** criará e populará o banco automaticamente usando os scripts da pasta `db/migration`.
 
-## 📖 Acesso e Documentação da API
+## 📖 Acesso, Teste e Documentação da API
 
-### Documentação
+### Autenticação
+Todos os endpoints são protegidos por autenticação básica. Para acessar qualquer recurso, forneça as seguintes credenciais:
+-   **Username:** `user`
+-   **Password:** `password`
+
+### Testando com Postman
+A maneira mais recomendada de testar e interagir com a API é através da nossa collection do Postman.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://vitor-acarvalho-8556727.postman.co/workspace/Vitor-Martins-Avelino-de-Carval~7f22442b-6234-4c1f-8889-54e1c5c3ef25/collection/48729584-af3-4ac8-8f3b-7029107f6632?action=share&source=collection_link&creator=48729584)
+
+A collection já vem com a autenticação pré-configurada e está organizada por recurso para facilitar o uso.
+
+> **❗ Atenção:** As URLs na collection podem não incluir o prefixo `/api/v1/`. Se necessário, ajuste as URLs nas requisições do Postman para que os testes funcionem.
+
+### Documentação Interativa (Swagger)
+Para uma documentação visual e interativa de todos os endpoints disponíveis:
+-   **URL:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+-   *Lembre-se de clicar no botão "Authorize" e inserir as credenciais para poder testar os endpoints diretamente pela interface.*
+
+### Acesso ao H2 Console
+Quando a aplicação está rodando em modo H2, você pode acessar o console do banco de dados para executar queries diretamente:
+-   **URL:** [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+-   **JDBC URL:** `jdbc:h2:mem:gastroDB`
+-   **User Name:** `sa`
+-   **Password:** (deixe em branco)
+
+## 🤝 Equipe do Projeto
+-   LUIS FELIPE
+-   JORGE JARDIM
+-   VITOR MARTINS AVELINO DE CARVALHO
