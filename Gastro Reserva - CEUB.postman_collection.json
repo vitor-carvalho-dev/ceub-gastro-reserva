@@ -4,7 +4,7 @@
 		"name": "Gastro Reserva - CEUB",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "48729584",
-		"_collection_link": "https://vitor-acarvalho-8556727.postman.co/workspace/7f22442b-6234-4c1f-8889-54e1c5c3ef25/collection/48729584-af35d2bc-044f-4ac8-8f3b-7029107f6632?action=share&source=collection_link&creator=48729584"
+		"_collection_link": "https://vitor-acarvalho-8556727.postman.co/workspace/Vitor-Martins-Avelino-de-Carval~7f22442b-6234-4c1f-8889-54e1c5c3ef25/collection/48729584-af35d2bc-044f-4ac8-8f3b-7029107f6632?action=share&source=collection_link&creator=48729584"
 	},
 	"item": [
 		{
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"tipoUsuario\": \"CLIENTE\",\r\n  \"cpf\": \"242.171.750-78\",\r\n  \"nome\": \"Carla Oliveira\",\r\n  \"senha\": \"Senha@Segura123\",\r\n  \"email\": \"carla.oliveira@exemplo.com\",\r\n  \"endereco\": \"Avenida Brasil, 456, Apartamento 10\",\r\n  \"codTermoAceite\": 1 \r\n}",
+							"raw": "{\r\n  \"tipoUsuario\": \"CLIENTE\",\r\n  \"cpf\": \"242.171.750-78\",\r\n  \"nome\": \"Icara Barracada\",\r\n  \"senha\": \"Senha@Segura123\",\r\n  \"email\": \"carla.oliveira@exemplo.com\",\r\n  \"endereco\": \"Avenida Brasil, 456, Apartamento 10\",\r\n  \"codTermoAceite\": 1 \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -102,23 +102,292 @@
 			]
 		},
 		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/usuarios",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"usuarios"
-					]
+			"name": "Restaurante",
+			"item": [
+				{
+					"name": "Restaurante",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurante_Requisicao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Boi Bumba Carreiro\",\r\n    \"endereco\": \"Casa do lago sul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/restaurantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Mesa",
+			"item": [
+				{
+					"name": "Mesa_Requisicao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"codRestaurante\": 2,\r\n  \"codMesa\": 1,\r\n  \"qtdCadeira\": 8,\r\n  \"numero\": 11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/mesas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"mesas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservas",
+			"item": [
+				{
+					"name": "Reserva",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserva_Requisicao",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codRestaurante\": 2,\r\n    \"codUsuario\": 2,\r\n    \"codMesa\": 1,\r\n    \"dataAgendamento\": \"2025-09-30T14:22:20.165Z\",\r\n    \"comentario\": \"Tera vegano\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "check-out",
+			"item": [
+				{
+					"name": "check out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reservaId\": 2,\r\n  \"nomeCliente\": \"Icara Barracada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/checkouts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"checkouts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "check-in",
+			"item": [
+				{
+					"name": "check in",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/checkins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"checkins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkin_requisicao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reservaId\": 2,\r\n  \"nomeCliente\": \"Icara Barracada\",\r\n  \"numeroMesa\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/checkins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"checkins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

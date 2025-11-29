@@ -30,16 +30,14 @@ public class UsuarioService {
             throw new AccessDeniedException("Acesso negado. Usuário não esta autenticado");
         }
 
-        // Verifica se já existe um usuário com o mesmo CPF
+
         usuarioRepository.findByCpf(usuarioDTO.getCpf()).ifPresent(u -> {
             throw new DataIntegrityViolationException("CPF " + usuarioDTO.getCpf() + " já cadastrado no sistema.");
         });
 
-        // Verifica se o termo de aceite existe
         TermoAceite termoAceite = termoAceiteRepository.findById(usuarioDTO.getCodTermoAceite())
                 .orElseThrow(() -> new RecursoNaoEncontradoException(String.format("Termo de aceite com id:%d não encontrado", usuarioDTO.getCodTermoAceite())));
 
-        // Converte o DTO para a entidade e salva
         Usuario entity = UsuarioMapper.toEntity(usuarioDTO, termoAceite);
         Usuario usuarioSalvo = usuarioRepository.save(entity);
 
@@ -65,12 +63,12 @@ public class UsuarioService {
         TermoAceite termoAceite = termoAceiteRepository.findById(usuarioDTO.getCodTermoAceite())
                 .orElseThrow(() -> new RecursoNaoEncontradoException(String.format("Termo de aceite com id:%d não encontrado", usuarioDTO.getCodTermoAceite())));
 
-        // Atualiza os dados do usuário existente
+
         usuarioExistente.setNome(usuarioDTO.getNome());
         usuarioExistente.setEmail(usuarioDTO.getEmail());
         usuarioExistente.setEndereco(usuarioDTO.getEndereco());
         usuarioExistente.setTipoUsuario(usuarioDTO.getTipoUsuario());
-        usuarioExistente.setTermoAceite(termoAceite); // se precisar para o termo de aceite
+        usuarioExistente.setTermoAceite(termoAceite);
 
         Usuario usuarioAtualizado = usuarioRepository.save(usuarioExistente);
         return UsuarioMapper.toDTO(usuarioAtualizado);
